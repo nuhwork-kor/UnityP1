@@ -97,3 +97,11 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+*.meta
+*.inputactions
+Assets/Settings/InputSystem_Actions.inputactions
+Assets/UnityP1.unity
+ProjectSettings/SceneTemplateSettings.json
+ProjectSettings/TagManager.asset
+Assets/Settings/InputSystem_Actions.inputactions
+ProjectSettings/TagManager.asset
