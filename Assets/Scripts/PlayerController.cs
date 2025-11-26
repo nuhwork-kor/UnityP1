@@ -45,23 +45,10 @@ public class PlayerController : MonoBehaviour
     {
         //GetKeyInput();        //RigidBody이용
         //Move1();              //transform.position 이용
-<<<<<<< Updated upstream
         //Move2();              //Translate 이용
         //Move3();                //MoveTowards 이용
         Move4();
-=======
 
-
-        //Move2();              //Translate 이용
-        //Move3();                //MoveTowards 이용
-        //Move4();
-
-
-        Move2();              //Translate 이용
-        //Move3();                //MoveTowards 이용
-        //Move4();
-
->>>>>>> Stashed changes
 
         MoveInScreen();         //캐릭터 스크린 안에 가두기
     }
@@ -93,11 +80,7 @@ public class PlayerController : MonoBehaviour
         transform.position += moveDir * baseSpeed * Time.deltaTime;
     }
 
-<<<<<<< Updated upstream
-    void Move2()        //캐릭터 밀림 없음
-=======
     void Move2()        //캐릭터 밀림 없음 / 화면 가두기 해도 아무런 부작용 없음 // 탄막슈팅 할거면 이 움직임을 써야할거같음
->>>>>>> Stashed changes
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
@@ -162,19 +145,9 @@ public class PlayerController : MonoBehaviour
             worldPos.z = transform.position.z;      //z축 고정 
 
             print("마우스 클릭 좌표 : " + mousePos);
-<<<<<<< Updated upstream
-            print("월드 좌표 : " +  worldPos);
-=======
-
 
             print("월드 좌표 : " +  worldPos);
 
-            print("월드 좌표 : " + worldPos);
-
-
-            print("월드 좌표 : " + worldPos);
-
->>>>>>> Stashed changes
             print("플레이어 월드 좌표 : " + transform.position);
 
             //만약 한번의 클릭으로 클릭 좌표까지 이동하려면 MoveTowards()함수가 업데이트에 있어야 함
@@ -203,11 +176,6 @@ public class PlayerController : MonoBehaviour
         // 스크린 좌표 : 모니터 해상도의 픽셀 (1920 * 1080 < 만큼의 픽셀)
         // 뷰포트 좌표 : 카메라의 사각뿔 끝에 있는 사각형 / 왼쪽 아래 (0, 0) 오른쪽 위 (1, 1)
         // UV 좌표(화면 텍스트, 2D 이미지를 표시하기 위한 좌표계/ 텍스쳐 좌표계라고도 함) 왼쪽 위 (0, 0) 오른쪽 아래(1, 1)
-<<<<<<< Updated upstream
-         
-=======
-
->>>>>>> Stashed changes
         Vector3 position = mainCamera.WorldToViewportPoint(transform.position);
         position.x = Mathf.Clamp(position.x, 0f + paddingX, 1f - paddingX);           //
         position.y = Mathf.Clamp(position.y, 0f + paddingY, 1f - paddingY);
@@ -234,13 +202,6 @@ public class PlayerController : MonoBehaviour
         Vector3 targetPos = baseSpeed * dir * Time.deltaTime;
         rb.MovePosition(currentPos + targetPos);
     }
-<<<<<<< Updated upstream
-}
-
-
-=======
-
-
 }
 
 
@@ -248,4 +209,14 @@ public class PlayerController : MonoBehaviour
 
 
 
->>>>>>> Stashed changes
+
+
+
+
+
+
+
+
+
+
+

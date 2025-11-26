@@ -1,0 +1,22 @@
+name: Allow only author to merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-author:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check merge authority
+        run: |
+          AUTHOR="${{ github.event.pull_request.user.login }}"
+          ACTOR="${{ github.actor }}"
+
+          echo "PR Author: $AUTHOR"
+          echo "Attempted by: $ACTOR"
+
+          if [ "$AUTHOR" != "$ACTOR" ]; then
+            echo "❌ Only PR author can merge. "
+            exit 1
+          fi
