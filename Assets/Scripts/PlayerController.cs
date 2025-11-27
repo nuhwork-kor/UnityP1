@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
     // UI 요소 중 마진과 패딩이 있음
     // 마진은 가장 바깥, 그 안쪽 패딩, 중앙 콘텐츠
 
+    public GameObject pet1;
+    public GameObject pet2;
+    bool isPet = false;
+    public float petUsingTIme;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +43,10 @@ public class PlayerController : MonoBehaviour
         //메인 카메라 참조 가져오기
         mainCamera = Camera.main;
 
+        //펫 끄기
+        pet1.SetActive(false);
+        pet2.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -46,11 +55,13 @@ public class PlayerController : MonoBehaviour
         //GetKeyInput();        //RigidBody이용
         //Move1();              //transform.position 이용
         //Move2();              //Translate 이용
-        //Move3();                //MoveTowards 이용
-        Move4();
+        Move3();                //MoveTowards 이용
+        //Move4();
 
 
         MoveInScreen();         //캐릭터 스크린 안에 가두기
+
+        GetPet();               //펫 소환
     }
 
     private void FixedUpdate()
@@ -59,7 +70,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void Move1()        //GetAxis는 캐릭 밀림 있음
+    void Move1()        //transform.position 사용 / GetAxis는 캐릭 밀림 있음
     {
         // 1. 입력 받기 (키보드, 마우스 등 입력은 Input 매니저가 담당한다)
         // Input.GetAxis("Horizontal") -> -1 ~ 1        (실수) -1 ~ 소수 ~ 0 ~ 소수 ~ 1 라서 !!!캐릭터 밀림현상이 있음. 근데 자연스러움!!!
@@ -80,7 +91,7 @@ public class PlayerController : MonoBehaviour
         transform.position += moveDir * baseSpeed * Time.deltaTime;
     }
 
-    void Move2()        //캐릭터 밀림 없음 / 화면 가두기 해도 아무런 부작용 없음 // 탄막슈팅 할거면 이 움직임을 써야할거같음
+    void Move2()        //Translate 사용 /캐릭터 밀림 없음 / 화면 가두기 해도 아무런 부작용 없음 // 탄막슈팅 할거면 이 움직임을 써야할거같음
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
@@ -93,7 +104,7 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(moveDir * baseSpeed * Time.deltaTime, Space.World);  
     }
 
-    void Move3()        //캐릭터 밀림 없음, 아주 약간 부드러움 , 카메라 고정 시키면 끝에가서 움직이면 걸림현상 생김(간만큼
+    void Move3()        //MoveTowards 사용 /캐릭터 밀림 없음, 아주 약간 부드러움 , 카메라 고정 시키면 끝에가서 움직이면 걸림현상 생김(누른 시간만큼
     {
         //MoveTowards 는 현재 위치에서 목표 위치로 일정 속도로 이동
         //MoveTowards(현재위치, 목표위치, 속도 * 시간)
@@ -118,7 +129,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void Move4()
+    void Move4()    //MoveTowards + ScreenToWorldPoint 사용
     {
         // 메인 카메라의 주요 함수
         // 자주 사용하기 때문에 어디서든 접근할 수 있도록 변수 선언해서 사용
@@ -146,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
             print("마우스 클릭 좌표 : " + mousePos);
 
-            print("월드 좌표 : " +  worldPos);
+            print("월드 좌표 : " + worldPos);
 
             print("플레이어 월드 좌표 : " + transform.position);
 
@@ -201,6 +212,28 @@ public class PlayerController : MonoBehaviour
         Vector3 currentPos = transform.position;
         Vector3 targetPos = baseSpeed * dir * Time.deltaTime;
         rb.MovePosition(currentPos + targetPos);
+    }
+
+    void GetPet()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (!isPet)
+            {
+                isPet = true;
+                pet1.SetActive(true);
+                pet2.SetActive(true);
+            }
+        }
+        petUsingTIme += Time.deltaTime;
+
+        if (petUsingTIme >= 8f)
+        {
+            isPet = false;
+            pet1.SetActive(false);
+            pet2.SetActive(false);
+            petUsingTIme = 0;
+        }
     }
 }
 

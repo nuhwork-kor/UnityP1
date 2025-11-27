@@ -10,9 +10,16 @@ public class DestroyZone : MonoBehaviour
     public PlayerBulletFire pf;                                                                                   // 참조하는 방법 1
     public GameObject Player;                                                                                     // 참조하는 방법 1
 
+    public PetBulletFire petfire1;
+    public PetBulletFire petfire2;
+    public GameObject Pet1;
+    public GameObject Pet2;
+
     private void Start()
     {
         pf = Player.GetComponent<PlayerBulletFire>();                                                             // 참조하는 방법 1
+        petfire1 = Pet1.GetComponent<PetBulletFire>();
+        petfire2 = Pet2.GetComponent<PetBulletFire>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,17 +49,23 @@ public class DestroyZone : MonoBehaviour
 
             //GameObject 배열을 썼을 경우 / 오브젝트 비활성화
             //other.gameObject.SetActive(false);
-            
+
             // or 오브젝트 삭제
             //Destroy(other.gameObject);
 
             //List를 썼을 경우 poolSize가 넘어가면 계속 생성되므로 오브젝트 풀에 다시 넣어주는 과정이 필요
-           /* pf.listBulletPool.Add(other.gameObject);*/                                                            // 참조하는 방법 1        
+            /* pf.listBulletPool.Add(other.gameObject);*/                                                            // 참조하는 방법 1        
 
             //PlayerBulletFire pf = GameObject.Find("Player").GetComponent<PlayerBulletFire>();                 // 참조하는 방법 2 << 이거는 계속 닿을때마다 찾는 과정을 거치고 처리하는거라 비효율적
 
             //Queue를 썼을 경우
             pf.ReloadPool(other.gameObject);
+        }
+        if(other.gameObject.layer == LayerMask.NameToLayer("PetBullet"))
+        {
+            Debug.Log("펫 총알이 DestroyZone에 접근하여 파괴됨");
+            petfire1.ReloadPool(other.gameObject);
+            petfire2.ReloadPool(other.gameObject);
         }
     }
 }
