@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
     {
         // 1. 총알 이동
         //transform.position += transform.up * speed * Time.deltaTime;
-        transform.Translate(Vector3.right * speed *  Time.deltaTime);
+        transform.Translate(Vector3.up * speed *  Time.deltaTime);
 
 
         // 2. 발사 위치롭터 일정 거리 이상 떨어지면 삭제
@@ -48,5 +48,12 @@ public class Bullet : MonoBehaviour
         //{
         //    Destroy(gameObject);
         //}     
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -154,7 +154,7 @@ public class PlayerBulletFire : MonoBehaviour
                 //오브젝트 활성화 및 위치, 회전 설정
                 bullet.SetActive(true);
                 bullet.transform.position = firePoint.position;
-                bullet.transform.up = firePoint.up;
+                bullet.transform.up = firePoint.right;
             }
             else
             {
