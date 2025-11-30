@@ -63,7 +63,7 @@ public class PetBulletFire : MonoBehaviour
                 bullet.SetActive(true);
                 bullet.transform.position = firePoint.position;
                 bullet.transform.up = firePoint.right;
-
+                bullet.GetComponent<PetBullet>().owner = this;          //총알 나눠가지지 못하게 주인 정해주기.
             }
             else
             {
