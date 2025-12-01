@@ -64,8 +64,13 @@ public class DestroyZone : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("PetBullet"))
         {
             Debug.Log("펫 총알이 DestroyZone에 접근하여 파괴됨");
-            petfire1.ReloadPool(other.gameObject);
-            petfire2.ReloadPool(other.gameObject);
+            //petfire1.ReloadPool(other.gameObject);
+            //petfire2.ReloadPool(other.gameObject);
+            PetBullet owner = other.GetComponent<PetBullet>(); 
+            if(owner != null)
+            {
+                owner.owner.ReloadPool(other.gameObject);           //자신의 owner에게만 적용
+            }
         }
     }
 }

@@ -14,7 +14,8 @@ https://docs.unity3d.com/ScriptReference/AddComponentMenu.html
 public class Enemy : MonoBehaviour
 {
     public float speed = 5f;
-    public GameObject bulletFactory;
+
+    public GameObject fxFactory;            //이펙트 공장
     
     void Update()
     {
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             //폭발효과
+            ShowEffect();
             //사운드
             //점수증가
             //적비행기사라짐
@@ -41,7 +43,19 @@ public class Enemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Bullet" || other.gameObject.tag == "PetBullet")
         {
+            ShowEffect();
             Destroy(gameObject);
         }
+    }
+
+    void ShowEffect()
+    {
+        //if(fxFactory != null)
+        //{
+        //    Instantiate(fxFactory, transform.position, Quaternion.identity);
+        //}
+
+        GameObject fx = Instantiate(fxFactory);
+        fx.transform.position = transform.position;
     }
 }
